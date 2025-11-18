@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BMI Calc</title>
+<style>
+body{background:#1a2a6c;font-family:Arial;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;color:white;}
+.container{background:white;padding:30px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,0.3);color:#333;width:90%;max-width:400px;}
+.page{display:none;}
+.active{display:block;}
+h1{text-align:center;margin-bottom:20px;color:#2c3e50;}
+input{width:100%;padding:12px;margin:10px 0;border:1px solid #ddd;border-radius:8px;font-size:16px;}
+button{width:100%;padding:12px;background:#3498db;color:white;border:none;border-radius:8px;font-size:16px;margin-top:10px;cursor:pointer;}
+button:hover{background:#2980b9;}
+.result{text-align:center;font-size:24px;font-weight:bold;margin:20px 0;}
+.category{padding:10px;border-radius:20px;margin:10px 0;color:white;}
+.under{background:#3498db;}
+.normal{background:#2ecc71;}
+.over{background:#f39c12;}
+.obese{background:#e74c3c;}
+img{width:100%;border-radius:10px;margin:15px 0;}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="page active" id="page1">
+<h1>BMI Calculator</h1>
+<input type="number" id="height" placeholder="Height (cm)" value="175">
+<input type="number" id="weight" placeholder="Weight (kg)" value="70">
+<button onclick="calculate()">Calculate</button>
+<img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Man exercising">
+</div>
+
+<div class="page" id="page2">
+<h1>Your Result</h1>
+<div class="result" id="bmi">--</div>
+<div class="category" id="category">--</div>
+<p id="message">Keep maintaining your health!</p>
+<button onclick="goBack()">Calculate Again</button>
+</div>
+</div>
+
+<script>
+function calculate(){
+let h=document.getElementById('height').value/100;
+let w=document.getElementById('weight').value;
+let bmi=(w/(h*h)).toFixed(1);
+document.getElementById('bmi').textContent=bmi;
+let cat=document.getElementById('category');
+let msg=document.getElementById('message');
+if(bmi<18.5){
+cat.textContent='Underweight';
+cat.className='category under';
+msg.textContent='You may need to gain some weight';
+}else if(bmi<25){
+cat.textContent='Normal Weight';
+cat.className='category normal';
+msg.textContent='Great! Keep it up';
+}else if(bmi<30){
+cat.textContent='Overweight';
+cat.className='category over';
+msg.textContent='Consider some lifestyle changes';
+}else{
+cat.textContent='Obese';
+cat.className='category obese';
+msg.textContent='Consult a healthcare provider';
+}
+document.getElementById('page1').classList.remove('active');
+document.getElementById('page2').classList.add('active');
+}
+function goBack(){
+document.getElementById('page2').classList.remove('active');
+document.getElementById('page1').classList.add('active');
+}
+</script>
+</body>
+</html>
